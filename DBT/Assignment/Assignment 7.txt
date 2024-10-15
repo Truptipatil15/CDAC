@@ -1,0 +1,90 @@
+1)Write a query that counts all orders for October 3. 
+ mysql> select Onum, count(*) count from orders
+    -> where Odate in('1990-10-03')
+    -> group by Onum;
++------+-------+
+| Onum | count |
++------+-------+
+| 3001 |     1 |
+| 3003 |     1 |
+| 3002 |     1 |
+| 3005 |     1 |
+| 3006 |     1 |
++------+-------+
+5 rows in set (0.00 sec)
+
+2) Write a query that counts the number of different non-NULL city values in the 
+Customers table. 
+
+mysql> SELECT city,count(city) Count
+    -> FROM customer
+    -> WHERE city IS NOT NULL
+    -> group by city;
++----------+-------+
+| city     | Count |
++----------+-------+
+| London   |     2 |
+| Rome     |     2 |
+| San Jose |     2 |
+| Berlin   |     1 |
++----------+-------+
+4 rows in set (0.00 sec)
+
+2)Write a query that selects each customer’s smallest order. 
+mysql> select Cname, Min(amt) "Smallest Order"
+    -> from customer
+    -> join orders on customer.cnum=orders.cnum
+    -> group by customer.cname;
++----------+----------------+
+| Cname    | Smallest Order |
++----------+----------------+
+| Cisneros |          18.69 |
+| Hoffman  |         767.19 |
+| Pereira  |         1900.1 |
+| Liu      |        5160.45 |
+| Giovanni |        1713.23 |
+| Grass    |          75.75 |
+| Clemens  |           4723 |
++----------+----------------+
+7 rows in set (0.01 sec)
+
+4) Write a query that selects the first customer, in alphabetical order, whose name 
+begins with G. 
+mysql> select * from customer
+    -> where cname like 'G%'
+    -> order by cname
+    -> limit 1;
++------+----------+------+--------+------+
+| Cnum | Cname    | City | Rating | Snum |
++------+----------+------+--------+------+
+| 2002 | Giovanni | Rome |    200 | 1003 |
++------+----------+------+--------+------+
+1 row in set (0.00 sec)
+
+5)Write a query that selects the highest rating in each city. 
+
+mysql> select max(rating) "Highest Rating"
+    -> from customer;
++----------------+
+| Highest Rating |
++----------------+
+|            300 |
++----------------+
+1 row in set (0.00 sec)
+
+6) Write a query that counts the number of salespeople registering orders for each 
+day. (If a salesperson has more than one order on a given day, he or she should be 
+counted only once.).
+
+mysql> select count(distinct snum) "Salespeople Count" from orders
+    -> group by Odate;
++-------------------+
+| Salespeople Count |
++-------------------+
+|                 4 |
+|                 2 |
+|                 1 |
+|                 2 |
++-------------------+
+4 rows in set (0.00 sec)
+

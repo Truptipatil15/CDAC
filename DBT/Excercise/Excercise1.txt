@@ -1,0 +1,371 @@
+1. Create the table SEMP with the following structure:- 
+ 
+ EMPNO CHAR(4) 
+ EMPNAME CHAR(20) 
+ BASIC FLOAT 
+ DEPTNO CHAR(2) 
+ DEPTHEAD CHAR(4) 
+ 
+create table SEMP(EmpNo char(4),
+    -> EmpName char(20),
+    -> Basic float,
+    -> DeptNo char(2),
+    -> DeptHead char(4));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc SEMP;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| EmpNo    | char(4)  | YES  |     | NULL    |       |
+| EmpName  | char(20) | YES  |     | NULL    |       |
+| Basic    | float    | YES  |     | NULL    |       |
+| DeptNo   | char(2)  | YES  |     | NULL    |       |
+| DeptHead | char(4)  | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+
+2. Create the table SDEPT with the following structure:- 
+ 
+ DEPTNO CHAR(2) 
+ DEPTNAME CHAR(15) 
+ 
+mysql> create table SDEPT(DeptNo char(2),DeptName char(15));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc SDEPT;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| DeptNo   | char(2)  | YES  |     | NULL    |       |
+| DeptName | char(15) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+3. Insert into the SDEPT table the following values:- 
+ 
+10, Development 
+20, Training 
+ 
+
+mysql> insert into SDEPT(DeptNo,DeptName)
+    -> Values
+    -> ('10','Development'),
+    -> ('20','Training');
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from SDEPT;
++--------+-------------+
+| DeptNo | DeptName    |
++--------+-------------+
+| 10     | Development |
+| 20     | Training    |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+4. Insert into the SEMP table the following values:- 
+ 
+0001, SUNIL, 6000, 10 
+0002, HIREN, 8000, 20 
+0003, ALI, 4000, 10, 0001 
+0004, GEORGE, 6000, 0002 
+ 
+
+mysql> insert into SEMP(EmpNo,EmpName,Basic,DeptNo)
+    -> values
+    -> ('0001','SUNIL',6000,'10');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into SEMP(EmpNo,EmpName,Basic,DeptNo)
+    -> values
+    -> ('0002','HIREN',8000,'20');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into SEMP(EmpNo,EmpName,Basic,DeptNo,DeptHead)
+    -> values
+    -> ('0003','ALI',4000,'10','0001');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into SEMP(EmpNo,EmpName,Basic,DeptHead)
+    -> values
+    -> ('0004','GEORGE',6000,'0001');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from SEMP;
++-------+---------+-------+--------+----------+
+| EmpNo | EmpName | Basic | DeptNo | DeptHead |
++-------+---------+-------+--------+----------+
+| 0001  | SUNIL   |  6000 | 10     | NULL     |
+| 0002  | HIREN   |  8000 | 20     | NULL     |
+| 0003  | ALI     |  4000 | 10     | 0001     |
+| 0004  | GEORGE  |  6000 | NULL   | 0001     |
++-------+---------+-------+--------+----------+
+4 rows in set (0.00 sec)
+
+ 
+
+Create S, P, J, SPJ tables as specified below and insert a few rows in each table:- 
+ 
+ SUPPLIER 
+(S#, Sname, Status, City) 
+- S 
+ PARTS 
+(P#, Pname, Color, Weight, City) 
+- P 
+ PROJECTS 
+(J#, Jname, City) 
+- J 
+ SUPPLIER-PARTS-PROJECT 
+(S#, P#, J#, Qty) 
+ 
+- SPJ 
+Sample data for S# column:- ‘S1’, ‘S2’, ‘S3’, etc. 
+Sample data for P# column:- ‘P1’, ‘P2’, ‘P3’, etc. 
+Sample data for J# column:- ‘J1’, ‘J2’, ‘J3’, etc. 
+Sample data for Status column:- 10, 20, 30, etc. 
+ 
+mysql> create table S(S_no varchar(10) primary key,
+    -> Sname varchar(20),Status int, city varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc S;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_no   | varchar(10) | NO   | PRI | NULL    |       |
+| Sname  | varchar(20) | YES  |     | NULL    |       |
+| Status | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into S(S_no,Sname,Status,city)
+    -> values
+    -> ('S1', 'Supplier A', 10, 'New York'),
+    -> ('S2', 'Supplier B', 20, 'London'),
+    -> ('S3', 'Supplier C', 30, 'Chicago');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> create table P(P_No char(2) primary key,Pname varchar(20),Color varchar(20),Weight float(5,2),City varchar(20));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> desc P;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| P_No   | char(2)     | NO   | PRI | NULL    |       |
+| Pname  | varchar(20) | YES  |     | NULL    |       |
+| Color  | varchar(20) | YES  |     | NULL    |       |
+| Weight | float(5,2)  | YES  |     | NULL    |       |
+| City   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into P(P_no,Pname,Color,Weight,City)
+    -> values
+    -> ('P1', 'Part X', 'Red', 12.50, 'New York'),
+    -> ('P2', 'Part Y', 'Blue', 15.00, 'Los Angeles'),
+    -> ('P3', 'Part Z', 'Green', 20.25, 'Chicago');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> create table J(J_No char(2) primary key,Jname varchar(20),City varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc J;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| J_No  | char(2)     | NO   | PRI | NULL    |       |
+| Jname | varchar(20) | YES  |     | NULL    |       |
+| City  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into J(J_no,Jname,city)
+    -> values
+    -> ('J1', 'Project 1', 'New York'),('J2', 'Project 2', 'Los Angeles'),('J3', 'Project 3', 'Chicago');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> create table SPJ(S_no char(2),P_No char(2),J_No char(2),Qty int,
+    -> primary key(S_no,P_No,J_No),
+    -> foreign key(S_no) references S(S_no),
+    -> foreign key(P_No) references P(P_No),
+    -> foreign key(J_No) references J(J_No));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc J;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| J_No  | char(2)     | NO   | PRI | NULL    |       |
+| Jname | varchar(20) | YES  |     | NULL    |       |
+| City  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc SPJ;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| S_no  | char(2) | NO   | PRI | NULL    |       |
+| P_No  | char(2) | NO   | PRI | NULL    |       |
+| J_No  | char(2) | NO   | PRI | NULL    |       |
+| Qty   | int     | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO SPJ (S_No, P_No, J_No, Qty) 
+VALUES
+('S1', 'P1', 'J1', 100),
+('S2', 'P2', 'J2', 200),
+('S3', 'P3', 'J3', 300),
+('S1', 'P2', 'J3', 150),
+('S2', 'P1', 'J1', 250);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+
+Write the SELECT queries to do the following:- 
+ 
+5. Display all the data from the S table. 
+mysql> select * from S;
++------+------------+--------+----------+
+| S_no | Sname      | Status | city     |
++------+------------+--------+----------+
+| S1   | Supplier A |     10 | New York |
+| S2   | Supplier B |     20 | London   |
+| S3   | Supplier C |     30 | Chicago  |
++------+------------+--------+----------+
+3 rows in set (0.00 sec) 
+
+
+6. Display only the S# and SNAME fields from the S table. 
+
+mysql> select S_no, Sname from S;
++------+------------+
+| S_no | Sname      |
++------+------------+
+| S1   | Supplier A |
+| S2   | Supplier B |
+| S3   | Supplier C |
++------+------------+
+3 rows in set (0.00 sec)
+ 
+7. Display the PNAME and COLOR from the P table for the CITY=”London”. 
+
+mysql> select Pname,color from P
+    -> where city='London';
++--------+-------+
+| Pname  | color |
++--------+-------+
+| Part A | Pink  |
++--------+-------+
+1 row in set (0.00 sec) 
+
+8. Display all the Suppliers from London. 
+mysql> select * from S
+    -> where city='London';
++------+------------+--------+--------+
+| S_no | Sname      | Status | city   |
++------+------------+--------+--------+
+| S2   | Supplier B |     20 | London |
+| S4   | Supplier D |     40 | London |
++------+------------+--------+--------+
+2 rows in set (0.00 sec)
+
+9. Display all the Suppliers from Paris or Athens. 
+ mysql> select * from S
+    -> where city in('Paris','Athens');
++------+------------+--------+--------+
+| S_no | Sname      | Status | city   |
++------+------------+--------+--------+
+| S5   | Supplier E |     60 | Paris  |
+| S6   | Supplier G |     70 | Athens |
++------+------------+--------+--------+
+2 rows in set (0.00 sec)
+
+10. Display all the Projects in Athens. 
+ 
+11. Display all the Partnames with the weight between 12 and 14 (inclusive of both). 
+
+mysql> select * from P
+    -> where weight between 12 and 14;
++------+--------+--------+--------+----------+
+| P_No | Pname  | Color  | Weight | City     |
++------+--------+--------+--------+----------+
+| P1   | Part X | Red    |  12.50 | New York |
+| P5   | Part P | Purple |  13.50 | Athens   |
+| P6   | Part M | Yellow |  13.00 | Paris    |
++------+--------+--------+--------+----------+
+3 rows in set (0.00 sec)
+
+ 
+12. Display all the Suppliers with a Status greater than or equal to 20. 
+ 
+mysql> select * from S
+    -> where status >=20;
++------+------------+--------+----------+
+| S_no | Sname      | Status | city     |
++------+------------+--------+----------+
+| S2   | Supplier B |     20 | London   |
+| S3   | Supplier C |     30 | Chicago  |
+| S4   | Supplier D |     40 | London   |
+| S5   | Supplier E |     60 | Paris    |
+| S6   | Supplier G |     70 | Athens   |
+| S8   | Supplier I |     30 | New York |
++------+------------+--------+----------+
+6 rows in set (0.00 sec)
+
+13. Display all the Suppliers except the Suppliers from London. 
+ mysql> select * from S
+    -> where city not in('London');
++------+------------+--------+----------+
+| S_no | Sname      | Status | city     |
++------+------------+--------+----------+
+| S1   | Supplier A |     10 | New York |
+| S3   | Supplier C |     30 | Chicago  |
+| S5   | Supplier E |     60 | Paris    |
+| S6   | Supplier G |     70 | Athens   |
+| S8   | Supplier I |     30 | New York |
++------+------------+--------+----------+
+5 rows in set (0.00 sec)
+
+14. Display only the Cities from where the Suppliers come from. 
+ 
+mysql> select distinct city from S;
++----------+
+| city     |
++----------+
+| New York |
+| London   |
+| Chicago  |
+| Paris    |
+| Athens   |
++----------+
+
+15. Assuming that the Part Weight is in GRAMS, display the same in 
+MILLIGRAMS and KILOGRAMS.
+
+mysql> select Pname,
+    -> weight as weight_in_gram,
+    -> (weight*1000) as weight_in_milligrams,
+    -> (weight/1000) as weight_in_kilograms
+    -> from P;
++--------+----------------+----------------------+---------------------+
+| Pname  | weight_in_gram | weight_in_milligrams | weight_in_kilograms |
++--------+----------------+----------------------+---------------------+
+| Part X |          12.50 |             12500.00 |            0.012500 |
+| Part Y |          15.00 |             15000.00 |            0.015000 |
+| Part Z |          20.25 |             20250.00 |            0.020250 |
+| Part A |          25.45 |             25450.00 |            0.025450 |
+| Part P |          13.50 |             13500.00 |            0.013500 |
+| Part M |          13.00 |             13000.00 |            0.013000 |
+| Part L |          11.40 |             11400.00 |            0.011400 |
++--------+----------------+----------------------+---------------------+
+7 rows in set (0.00 sec)
