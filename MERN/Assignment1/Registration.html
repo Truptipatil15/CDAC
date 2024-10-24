@@ -1,0 +1,86 @@
+<html>
+<head>
+    <title>Create Your Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background:url("images/register.avif") no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgb(92, 83, 221);
+            padding: 30px;
+            margin-left: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .container p {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+        .container input[type="text"],
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .container button:hover {
+            background-color: #45a049;
+        }
+        .container .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .container .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .container .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Account</h1>
+       
+        <form>
+            <input type="text" placeholder="Full Name *" required>
+            <input type="text" placeholder="Username *" required>
+            <input type="email" placeholder="Email Address *" required>
+            <input type="password" placeholder="Password *" required>
+            <input type="password" placeholder="Confirm Password *" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="#">Log In</a>
+        </div>
+    </div>
+</body>
+</html>
